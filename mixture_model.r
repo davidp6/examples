@@ -32,7 +32,7 @@ ggplot(NOdata, aes(y=Equivalence, x=NO)) +
 # Run analysis
 
 # regress using EM algorithm
-em.out <- regmixEM(Equivalence, NO)
+em.out <- regmixEM(NOdata$Equivalence, NOdata$NO)
 
 # display coefficients
 summary(em.out)
@@ -43,7 +43,7 @@ colnames(emfit) = c('comp.1_em','comp.2_em')
 NOdata = cbind(NOdata, emfit)
 
 # regress using MH algorithm
-mh.out <- regmixMH(Equivalence, NO)
+mh.out <- regmixMH(NOdata$Equivalence, NOdata$NO)
 
 # display coefficients
 summary(mh.out)
