@@ -1,8 +1,8 @@
 # ----------------------------------------------
 # David Phillips
-#
-# 11/4/2017
-# Template for a self-contained analysis
+# 
+# 12/18/2018
+# Generic template for a self-contained script
 # ----------------------------------------------
 
 
@@ -18,28 +18,13 @@ library(ggplot2)
 
 
 # ----------------------------------------------
-# Parameters and settings
-
-# some constant that I might want to fiddle with
-k <- 10
-
-# whether or not to do a certain thing
-makeGraphs <- TRUE
-# ----------------------------------------------
-
-
-# ----------------------------------------------
 # Files and directories
 
-# data directory
-dir <- 'C:/local/examples/'
-
 # input file
-inFile <- paste0(dir, 'data_file.csv')
+inFile = ''
 
 # output files
-modelOutputFile <- paste0(dir, 'output.rdata')
-graphFile <- paste0(dir, 'graphs.pdf')
+graphFile = ''
 # ----------------------------------------------
 
 
@@ -47,13 +32,13 @@ graphFile <- paste0(dir, 'graphs.pdf')
 # Load/prep data
 
 # load
-data <- fread(inFile)
+data = fread(inFile)
 
 # subset variables
-data <- data[, c('var1','x','y','z'), with=FALSE]
+data = data[, c('var1','x','y','z'), with=FALSE]
 
 # subset observations
-data <- data[!is.na(var1)]
+data = data[!is.na(var1)]
 
 # format variables
 
@@ -70,10 +55,10 @@ data <- data[!is.na(var1)]
 # Run analysis
 
 # model formula
-form <- as.formula('y ~ x + z')
+form = as.formula('y ~ x + z')
 
 # run model
-glmOut <- glm(form, 'gaussian', data)
+glmOut = glm(form, 'gaussian', data)
 
 # predict fitted values
 data[, pred:=predict(glmOut)]
@@ -84,10 +69,10 @@ data[, pred:=predict(glmOut)]
 # Graph
 
 # colors
-cols <- brewer.pal(6, 'Paired')
+cols = brewer.pal(6, 'Paired')
 
 # store graph
-p <- ggplot(data, aes(y=y, x=x, color=z)) + 
+p = ggplot(data, aes(y=y, x=x, color=z)) + 
 	geom_point() + 
 	geom_line(aes(y=pred)) + 
 	scale_color_gradientn('Z', colors=cols) + 
